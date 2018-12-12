@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.izherebkin.gerrit.plugins</groupId>
+    <artifactId>commit-message-validator</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0</version>
+    <name>Commit Message Validator is a commit message validator plugin for Gerrit Code Review</name>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <properties>
+        <Gerrit-ApiType>plugin</Gerrit-ApiType>
+        <Gerrit-ApiVersion>2.11.2</Gerrit-ApiVersion>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.gerrit</groupId>
+            <artifactId>gerrit-${Gerrit-ApiType}-api</artifactId>
+            <version>${Gerrit-ApiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.rcarz</groupId>
+            <artifactId>jira-client</artifactId>
+            <version>0.5</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <Gerrit-PluginName>commit-message-validator</Gerrit-PluginName>
+                                <Gerrit-Module>org.izherebkin.gerrit.plugins.Module</Gerrit-Module>
+                                <Implementation-Title>Commit Message Validator Plugin</Implementation-Title>
+                                <Implementation-Version>${project.version}</Implementation-Version>
+                                <Gerrit-ApiType>${Gerrit-ApiType}</Gerrit-ApiType>
+                                <Gerrit-ApiVersion>${Gerrit-ApiVersion}</Gerrit-ApiVersion>
+                            </manifestEntries>
+                        </archive>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
